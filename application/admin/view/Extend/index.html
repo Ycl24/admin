@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Ycl24Admin</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="_Layui_/css/layui.css?v={$version}" media="all" />
+		<link rel="stylesheet" href="_CSS_/global.css?t={$version}" media="all">
+		<link rel="stylesheet" href="_Layui_/font-awesome/css/font-awesome.min.css?t={$version}">
+
+	</head>
+
+	<body>
+		<div class="layui-layout layui-layout-admin" style="border-bottom: solid 5px #1aa094;">
+			<div class="layui-header header header-demo">
+				<div class="layui-main">
+					<div class="admin-login-box">
+						<a class="logo" style="left: 0;" href="javascript:location.replace(location.href);">
+							<span style="font-size: 22px;">Ycl24Admin</span>
+						</a>
+						<div class="admin-side-toggle">
+							<i class="fa fa-bars" aria-hidden="true"></i>
+						</div>
+						<div class="admin-side-full">
+							<i class="fa fa-life-bouy" aria-hidden="true"></i>
+						</div>
+					</div>
+					<ul class="layui-nav admin-header-item">
+						<li class="layui-nav-item">
+							<a href="javascript:;" onClick="clearCache('{:url('Common/clearcache')}');">清除缓存</a>
+						</li>
+                        <li class="layui-nav-item" id="pay">
+                            <a href="javascript:;">捐赠我</a>
+                        </li>
+						<li class="layui-nav-item">
+							<a href="javascript:;">浏览网站</a>
+						</li>
+						<li class="layui-nav-item" id="video1">
+							<a href="javascript:;">视频</a>
+						</li>
+						<li class="layui-nav-item">
+							<a href="javascript:;" class="admin-header-user">
+								<img {if condition="$_user_images neq '' "} src="{$_user_images}" {else/} src="_IMAGES_/0.jpg" {/if} />
+								<span>{$_nickname}</span>
+							</a>
+							<dl class="layui-nav-child">
+								<dd>
+									<a href="javascript:;"><i class="fa fa-user-circle" aria-hidden="true"></i> 个人信息</a>
+								</dd>
+								<dd>
+									<a href="javascript:;"><i class="fa fa-gear" aria-hidden="true"></i> 设置</a>
+								</dd>
+								<dd id="lock">
+									<a href="javascript:;">
+										<i class="fa fa-lock" aria-hidden="true" style="padding-right: 3px;padding-left: 1px;"></i> 锁屏 (Alt+L)
+									</a>
+								</dd>
+								<dd>
+									<a href="javascript:;" class="singout" onclick="clearCache('{:url(\'Login/singout\')}')"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a>
+								</dd>
+							</dl>
+						</li>
+					</ul>
+					<ul class="layui-nav admin-header-item-mobile">
+						<li class="layui-nav-item">
+							<a href="javascript:;" class="singout" onclick="clearCache('{:url(\'Login/singout\')}')"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="layui-side layui-bg-black" id="admin-side">
+				<div class="layui-side-scroll" id="admin-navbar-side" lay-filter="side"></div>
+			</div>
+			<div class="layui-body" style="bottom: 0;border-left: solid 2px #1AA094;" id="admin-body">
+				<div class="layui-tab admin-nav-card layui-tab-brief" lay-filter="admin-tab">
+					<ul class="layui-tab-title">
+						<li class="layui-this">
+							<i class="fa fa-dashboard" aria-hidden="true"></i>
+							<cite>控制面板</cite>
+						</li>
+					</ul>
+					<div class="layui-tab-content" id="diviFrame" style="min-height: 150px; padding: 5px 0 0 0;">
+						<div id="base_loading"></div>
+						<div class="layui-tab-item layui-show">
+							<iframe src="main.html" height="100%" index='0' class="x-iframe"></iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="layui-footer footer footer-demo" id="admin-footer">
+				<div class="layui-main">
+					<p>2016 &copy;
+						<a href="#">m.zhengjinfan.cn/</a> LGPL license
+					</p>
+				</div>
+			</div>
+			<div class="site-tree-mobile layui-hide">
+				<i class="layui-icon">&#xe602;</i>
+			</div>
+			<div class="site-mobile-shade"></div>
+			
+			<!--锁屏模板 start-->
+			<script type="text/template" id="lock-temp">
+				<div class="admin-header-lock" id="lock-box">
+					<div class="admin-header-lock-img">
+						<img src="_IMAGES_/0.jpg"/>
+					</div>
+					<div class="admin-header-lock-name" id="lockUserName">beginner</div>
+					<input type="text" class="admin-header-lock-input" value="输入密码解锁.." name="lockPwd" id="lockPwd" />
+					<button class="layui-btn layui-btn-small" id="unlock">解锁</button>
+				</div>
+			</script>
+			<!--锁屏模板 end -->
+
+			<script src="_COMM_JS_/jquery-1.9.1.min.js?t={$version}"></script>
+			<script type="text/javascript" src="_Layui_/layui.js?t={$version}"></script>
+			<script type="text/javascript" src="_COMM_JS_/ajax.js?t={$version}"></script>
+			<script src="_JS_/index.js?t={$version}"></script>
+
+			<!-- <script type="text/javascript" src="_DATAS_/nav.js?t={$version}"></script> -->
+			<script>
+
+ 				var navs = [];
+				var json_data = JSON.parse('{$_powerList;}');   //json数据
+				for(i in json_data){
+				     navs.push(json_data[i]);
+				}
+				layui.use('layer', function() {
+					var $ = layui.jquery,
+						layer = layui.layer;
+
+					$('#video1').on('click', function() {
+						layer.open({
+							title: 'YouTube',
+							maxmin: true,
+							type: 2,
+							content: 'video.html',
+							area: ['800px', '500px']
+						});
+                    });
+                    $('#pay').on('click', function () {
+                        layer.open({
+                            title: false,
+                            type: 1,
+                            content: '<img src="_IMAGES_/xx.png" />',
+                            area: ['500px', '250px'],
+                            shadeClose: true
+                        });
+                    });
+
+
+				});
+			</script>
+		</div>
+	</body>
+
+</html>

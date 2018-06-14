@@ -1,0 +1,60 @@
+{extend name="Common:base" /}
+{block name="sreach"}
+		<a href="javascript:;" class="layui-btn layui-btn-small " id="add" onClick="alertFrom(this);" data-url="{:url('power/add')}" data-version="{$version}" data-title="添加管理员">
+			<i class="layui-icon ">&#xe608;</i> 添加管理员
+		</a>
+		
+		<a href="javascript:;" class="layui-btn layui-btn-small" id="search" onClick="alertFrom(this);" data-url="{:url('power/search')}" data-version="{$version}" data-title="搜索" >
+			<i class="layui-icon">&#xe615;</i> 搜索 
+		</a>
+ {/block}
+{block name="main"}
+	 
+	<fieldset class="layui-elem-field layui-field-title" style="margin: 0px;">
+	  <legend>数据列表</legend>
+	</fieldset>
+	<div class="layui-tab" lay-filter="test">
+            <div class="layui-tab-content" >
+                   <table id="data_info"  cellspacing="0" class="layui-table commTableList"></table>
+                </div>
+            </div>
+     	</div>
+ {/block}
+
+{block name="footer"}
+	
+
+	<!-- 开启状态start-->
+	<script type="text/html" id="status">
+		 <input type="checkbox" value='1' class="status" {{#  if(d.status == 1){ }} checked="" {{#  } }} data-id="{{d.id}}" data-url="{:url('Common/statusAjax')}" data-table="power" data-info="管理员"  lay-filter="status" lay-skin="switch" lay-text="开启|关闭"><div class="layui-unselect layui-form-switch" lay-skin="_switch"><em></em><i></i></div> 
+	</script>
+	<!-- 开启状态end-->
+	
+	<!-- 操作start-->
+	<script type="text/html" id="operation">
+		  <a class="layui-btn layui-btn-xs" lay-event="edit" onClick="alertFrom(this);" data-url="{:url('power/edit')}?id={{d.id}}" data-version="{$version}" data-title="编辑角色" >编辑</a>
+		  <a class="layui-btn layui-btn-danger layui-btn-xs" onclick="delAll('role','2')" lay-event="del">删除</a>
+	</script>
+	<!-- 操作end-->
+
+
+
+	<!-- table渲染start-->
+	<script type="text/javascript">
+	var json_data = JSON.parse('{$data.json_data;}');   //json数据
+	var limt = '{$_limit}';   //每页个数
+	var sort = [];   //每页个数
+	var arr = [ //标题栏
+        {checkbox: true, LAY_CHECKED: false,fixed:'left'} //默认全选
+        ,{field: 'id', title: '序号', width: 100, sort: true,templet: '<div>{{ d.LAY_TABLE_INDEX + 1}}</div>'}
+        ,{field: 'id', title: 'id', width: 100, sort: true}
+        ,{field: 'nickname', title: '昵称', width: 240}
+        ,{field: 'role_name', title: '角色', width: 200, sort: true}
+        ,{field: 'status', title: '是否启用', width: 200, templet: '#status'}
+        ,{field: 'operation', title: '操作', width: 200, align:'center',fixed:'right', templet: '#operation'}
+      ];
+
+	</script>
+	<!-- table渲染start-->
+	<script type="text/javascript" src="_COMM_JS_/table.js?t={$version}"></script>
+{/block}

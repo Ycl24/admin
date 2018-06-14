@@ -1,0 +1,73 @@
+{extend name="Common:base" /}
+{block name="main"}
+<div id="" class="layui-layer-content" style="height: 299px;"><div style="margin: 15px;">
+	<form class="layui-form " action="{:url($_controllerUrl)}" method="post" id="form" enctype="multipart/form-data">
+		<div class="layui-form-item">
+			<label class="layui-form-label">导航名称</label>
+			<div class="layui-input-block">
+				<input type="text" name="nav_title" placeholder="请输入导航名称"  required="" lay-verify="required" autocomplete="off" value="{$res.nav_title}" class="layui-input">
+				<input type="hidden" name="author" value="Ycl_24">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">控制器/方法</label>
+			<div class="layui-input-block">
+				<input type="text" name="nav_url"   placeholder="请输入导航地址" autocomplete="off" value="{$res.nav_url}"  class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">日期范围</label>
+			<div class="layui-input-block">
+				<input type="text" class="layui-input" id="comm_date_range" name="date" value="{$res.date}"  placeholder="开始 到 结束">
+				<input type="hidden" name="start_time" value="{$res.start_time}">
+				<input type="hidden" name="end_time" value="{$res.end_time}">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">开关</label>
+			<div class="layui-input-block">
+				<input type="checkbox" name="nav_status" value='1' {if condition=" $res.nav_status == 1 "} checked="" {/if} lay-skin="switch" lay-text="开启|关闭"><div class="layui-unselect layui-form-switch" lay-skin="_switch"><em></em><i></i></div>
+			</div>
+		</div>
+		<button lay-filter="submit_btn"  lay-submit="" id="submit_btn" style="display: none;"></button>
+		<button type="reset" id="submit_rebtn" style="display: none;"></button>
+	</form>
+</div></div>
+ {/block}
+{block name="footer"}
+	<script type="text/javascript">
+		$(function(){
+            layui.use(['form', 'layedit', 'laydate'], function(){  
+              var form = layui.form  
+              ,layer = layui.layer  
+              ,layedit = layui.layedit  
+              ,laydate = layui.laydate;  
+               
+               //自定义验证规则  
+			      // form.verify({  
+			           
+			      //       game_id: function(value){  
+			      //         if(value.length == 0){  
+			      //           return '请选择游戏';  
+			      //         }  
+			      //       },
+			      //       ,phone: [/^1[3|4|5|7|8]\d{9}$/, '手机必须11位，只能是数字！']  
+			      // });  
+                
+              //监听提交  
+              form.on('submit(submit_btn)', function(data){  
+                //获取html内容，返回: <p>hello</p>
+                 var info = $('#form').serialize();
+                 // console.log(info);
+                commonAjaxSubmit();
+                return false;  
+              });  
+                
+               
+            });  
+
+            
+        });
+　
+	</script>
+{/block}

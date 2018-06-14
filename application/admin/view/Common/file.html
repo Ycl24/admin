@@ -1,0 +1,27 @@
+<div class="layui-input-block">
+	<div class="layui-upload">
+	  <button type="button" class="layui-btn layui-btn-normal" id="testList">选择单文件</button> 
+	  <div class="layui-upload-list">
+	    <table class="layui-table">
+	      <thead>
+	        <tr><th>文件名</th>
+	        <th>大小</th>
+	        <th>状态</th>
+	        <th>操作</th>
+	      </tr></thead>
+	      <tbody id="demoList">
+	      	{if condition="$res.image_name neq '' "}
+	      	<tr id="upload-1514370233858-0" class="1513075299612">
+		      	<td>{$res.image_name}</td>
+		      	<td>*</td>
+		      	<td><font color="#5FB878">已上传</font></td>
+		      	<td><a href="{$res.icon}" target="_blank" class="layui-btn layui-btn-mini layui-btn-normal">查看</a></td>
+	      	</tr>
+	      	{/if}
+	      </tbody>
+	    </table>
+	  </div>
+	  <button type="button" class="layui-btn" id="testListAction">开始上传</button>
+	</div> 
+</div>
+<div id="upload_img_list"></div>
